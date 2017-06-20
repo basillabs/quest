@@ -1,0 +1,57 @@
+.hot-red {
+  color: #FF2020;
+}
+
+.hot-red-bg {
+  background-color: #FF2020;
+}
+
+.hot-red-text-glow {
+  text-shadow: 0 0 3px rgba(255,32,32, 0.5);
+}
+
+.dark-red-bg {
+  background-color: #201818;
+}
+
+.ddc {
+  font-family: "DDC", sans-serif;
+}
+
+.menlo {
+  font-family: Menlo, monospace;
+}
+
+.dark-text-shadow-lg {
+  text-shadow: 0 3px 0 #2F0C2C;
+}
+
+.dark-text-shadow {
+  text-shadow: 0 2px 0 #2F0C2C;
+}
+
+.lh7 {
+  line-height: 1.7
+}
+
+.btn {
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 10px 25px;
+  text-decoration: none;
+}
+
+.btn-red {
+  background-color: #FF2020;
+  color: white;
+  box-shadow: 0 0 7px #FF2020;
+}
+
+.bb-red {
+  border-bottom: 1px solid #FF2020;
+}
+
+@font-face {
+    font-family: DDC;
+    src: url("./fonts/DDCHardware-Regular.otf") format("opentype");
+}
