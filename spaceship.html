@@ -8,38 +8,67 @@
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
   </head>
   <body class="dark-red-bg m0">
+    <button onclick="updateRocket()">Update</button>
 
-    <div id="canvas"></div>
+    <div id="canvas" class="spaceship-container red-border">
+      <svg id="rocket-container" width="11px" height="31px" viewBox="0 0 11 31">
+        <g id="rocket">
+            <polygon id="gaurd" fill="#86240C" points="3 29 8 29 7.66344736 31 3.38228707 31"></polygon>
+            <path d="M3.29538202,24.0004897 C3.29538202,24.0004897 0.724655534,25.40952 0.222970933,26.512686 C-0.278713667,27.6158519 0.222970933,30.756486 0.222970933,30.756486 C0.222970933,30.756486 1.07942895,29.7177413 1.64769101,29.2611171 C2.21595307,28.8044929 3.29538202,28.287665 3.29538202,28.287665 L3.29538202,24.0004897 Z" id="fin-l" fill="#546B7C"></path>
+            <path d="M10.9475559,24.0004897 C10.9475559,24.0004897 8.37682945,25.40952 7.87514485,26.512686 C7.37346025,27.6158519 7.87514485,30.756486 7.87514485,30.756486 C7.87514485,30.756486 8.73160286,29.7177413 9.29986492,29.2611171 C9.86812698,28.8044929 10.9475559,28.287665 10.9475559,28.287665 L10.9475559,24.0004897 Z" id="fin-r" fill="#546B7C" transform="translate(9.299865, 27.378488) scale(-1, 1) translate(-9.299865, -27.378488) "></path>
+            <path d="M3.04746713,29.546875 C2.3947312,26.5484437 1.98939014,22.2246713 1.98939014,17.0412693 C1.98939014,6.84589693 5.49202694,0.232183562 5.49202694,0.232183562 C5.49202694,0.232183562 8.99466373,6.84589693 8.99466373,17.0412693 C8.99466373,22.2246713 8.58932267,26.5484437 7.93658674,29.546875 L3.04746713,29.546875 Z" id="base" fill="#FFFFFF"></path>
+        </g>
+      </svg>
+    </div>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-      var data = [];
+      var data = {
+        current: 0,
+        total: 20000
+      };
+
+      var colors = {
+        redFlame: "#FF1A1A"
+      };
 
       var height = 400;
       var width = 200;
+      var rocketHeight = 31;
+      var rocketWidth = 11;
       var padding = {top: 10, bottom: 10, right: 10, left: 10 };
 
-      var data = d3.range(40).map(function(d) {
-        return d;
-      })
+      var yScale = d3.scaleLinear()
+        .domain([0, data.total])
+        .range([height, 0])
 
       var svg = d3.select("#canvas")
         .append("svg")
         .attr("width", width + padding.right + padding.left)
         .attr("height", height + padding.top + padding.bottom)
-        .attr("transform", "translate(" + padding.left + "," + padding.top +")");
+        .attr("transform", "translate("+padding.left+", "+padding.top+")");
 
-      var circle = svg.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("fill", "white")
-        .attr("fill-opacity", 0.3)
-        .attr("r", 3)
-        .attr("cx", 10)
-        .attr("cy", function(d, i) {
-          return i * 10 + 10
-        });
+      var rocket = d3.select("#rocket-container")
+        .attr("transform", "translate("+ width / 2 +","+ (yScale(data.current) - rocketHeight) +")");
+
+      var flame = svg.append("rect")
+        .attr("width", 3)
+        .attr("height", height - yScale(data.current))
+        .attr("x", width / 2 - rocketWidth / 2)
+        .attr("y", yScale(data.current))
+        .attr("fill", colors.redFlame);
+
+
+      function updateRocket() {
+        data.current = Math.random() * 20000;
+        rocket.transition().attr("transform", "translate("+ width / 2 +","+ (yScale(data.current) - rocketHeight) +")");
+
+        flame
+          .transition()
+          .attr("height", height - yScale(data.current))
+          .attr("y", yScale(data.current));
+      }
+
 
     </script>
   </body>
