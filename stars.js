@@ -1,5 +1,5 @@
-var height = 400;
-var width = 200;
+var height = 400 * 2;
+var width = 200 * 2;
 
 var x = d3.scaleLinear()
   .domain([0, 100])
@@ -9,7 +9,7 @@ var y = d3.scaleLinear()
   .domain([0, 100])
   .range([0, height]);
 
-var colors = ["#9E5555", "#FF7F7F", "#FFFFFF"];
+var colors = ["#9E5555", "#FF7F7F", "#FFDADA"];
 var colorScale = d3.scaleQuantize().domain([0,1]).range(colors);
 
 var starData = d3.range(30).map(function() {
@@ -17,8 +17,8 @@ var starData = d3.range(30).map(function() {
   var dataObject =  {
     x: Math.random() * 100,
     y: Math.random() * 100,
-    yv: (random * 10) / 7,
-    size: (random * 1.5) + 0.5,
+    yv: random < 0.9 ? random / 10 : random,
+    size: (random * 3),
     color: colorScale(random)
   };
 
@@ -42,6 +42,7 @@ d3.timer(function() {
     // Recycle old circles
     if(d.y > (100 + d.size) ) {
       d.y = 0 - d.size;
+      d.x = Math.random() * 100;
     }
 
      context.fillStyle = d.color;
