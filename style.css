@@ -63,6 +63,40 @@
 }
 
 @font-face {
-    font-family: DDC;
-    src: url("./fonts/DDCHardware-Regular.otf") format("opentype");
+  font-family: DDC;
+  src: url("./fonts/DDCHardware-Regular.otf") format("opentype");
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes twitch {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.pulse {
+  animation-duration: 1s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.flame-move {
+  animation-duration: 1s;
+  animation-name: twitch;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
