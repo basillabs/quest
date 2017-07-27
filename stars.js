@@ -1,5 +1,5 @@
-var height = 400 * 2;
-var width = 200 * 2;
+var height = (height + padding.top + padding.bottom) * 2;
+var width = (width + padding.left + padding.right) * 2;
 
 var x = d3.scaleLinear()
   .domain([0, 100])
@@ -12,12 +12,12 @@ var y = d3.scaleLinear()
 var colors = ["#9E5555", "#FF7F7F", "#FFDADA"];
 var colorScale = d3.scaleQuantize().domain([0,1]).range(colors);
 
-var starData = d3.range(30).map(function() {
+var starData = d3.range(80).map(function() {
   var random = Math.random()
   var dataObject =  {
     x: Math.random() * 100,
     y: Math.random() * 100,
-    yv: random < 0.9 ? random / 10 : random,
+    yv: random < 0.95 ? random / 10 : random,
     size: (random * 3),
     color: colorScale(random)
   };
@@ -25,7 +25,7 @@ var starData = d3.range(30).map(function() {
   return dataObject;
 });
 
-var canvas = d3.select("#canvas").append("canvas")
+var canvas = d3.select("#canvas").insert("canvas", ":first-child")
     .attr("width", width)
     .attr("height", height)
     .attr("id", "star-canvas");
@@ -35,7 +35,8 @@ var context = canvas.node().getContext("2d");
 
 d3.timer(function() {
   context.clearRect(0, 0, width, height);
-
+  // context.fillStyle = 'rgba(33,23,24,0.6)';
+  // context.fillRect(0, 0, width, height);
   starData.forEach(function(d) {
     d.y += d.yv;
 

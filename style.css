@@ -56,8 +56,6 @@
 }
 
 .spaceship-container {
-  width: 200px;
-  height: 400px;
   background-image: linear-gradient(0deg, #630202 0%, rgba(32,24,24,0.00) 100%);
   position: relative;
 }
@@ -105,4 +103,10 @@ canvas {
   animation-name: twitch;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+.tick text {
+  font-weight: bold;
+  font-family: "Menlo", monospace;
+  fill: white;
 }
