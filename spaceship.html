@@ -57,6 +57,8 @@
         .domain([0, data.total])
         .range([1, 4])
 
+      var labelColorScale = d3.scaleLinear().domain([0,4]).range([d3.rgb("#FF2525"), d3.rgb('#FFFFFF')]);
+
       var rocket = d3.select("#rocket-container")
         .attr("style", "position: absolute; left: calc(50% - 5px); bottom: 0;");
 
@@ -80,10 +82,18 @@
         .attr("height", height + padding.top + padding.bottom)
           .append("g")
           .attr("transform", "translate("+ padding.left +","+ padding.top +")")
+          .attr("class", "number-axis")
           .call(numberAxis)
           .append("g")
           .attr("class", "circle-axis")
           .call(circleAxis);
+
+      var numberTicks = d3.selectAll(".number-axis .tick");
+        numberTicks
+          .each(function(d, i) {
+          d3.select(this).select("text")
+            .attr("fill", labelColorScale(i));
+        })
 
       var circleTicks = d3.selectAll(".circle-axis .tick");
       circleTicks.each(function() {
