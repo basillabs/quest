@@ -43,12 +43,14 @@
   font-size: 14px;
   padding: 10px 25px;
   text-decoration: none;
+  outline: none;
 }
 
 .btn-red {
   background-color: #FF2020;
   color: white;
   box-shadow: 0 0 7px #FF2020;
+  border: none;
 }
 
 .bb-red {
@@ -56,7 +58,7 @@
 }
 
 .spaceship-container {
-  background-image: linear-gradient(0deg, #630202 0%, rgba(32,24,24,0.00) 100%);
+  background-image: linear-gradient(0deg, #630202 -40%, rgba(68,42,42,0.1) 100%);
   position: relative;
 }
 
@@ -77,7 +79,7 @@
 
 @keyframes twitch {
   0% {
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
 
   100% {
@@ -89,6 +91,7 @@ canvas {
   width: 100%;
   height: 100%;
   position: absolute;
+  z-index: -1;
 }
 
 .pulse {

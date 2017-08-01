@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
   </head>
   <body class="dark-red-bg m0">
-    <button onclick="updateRocket()">Update</button>
-
     <div id="canvas" class="spaceship-container">
       <svg id="rocket-flames" width="11px" height="38px" viewBox="0 0 11 38">
         <g id="flames">
@@ -29,7 +27,7 @@
       </svg>
     </div>
 
-
+    <button class="btn btn-red b pointer pull-right mt4 ml5" onclick="updateRocket()">Update</button>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
       var data = {
@@ -41,7 +39,7 @@
       var width = 200;
       var rocketHeight = 55;
       var rocketWidth = 11;
-      var padding = {top: 20, bottom: 60, right: 20, left: 20 };
+      var padding = {top: 40, bottom: 55, right: 20, left: 20 };
       var heightPadded = height + padding.top + padding.bottom;
       var widthPadded = width + padding.left + padding.right;
 
@@ -78,6 +76,7 @@
 
       d3.select("#canvas")
         .append("svg")
+        .attr("class", "axisSvg")
         .attr("width", width + padding.left + padding.right)
         .attr("height", height + padding.top + padding.bottom)
           .append("g")
@@ -100,7 +99,7 @@
         d3.select(this)
           .append("circle")
           .attr("r", 3)
-          .attr("fill", "rgba(0,0,0, 0.4)");
+          .attr("fill", "rgba(142,52,52,0.4)");
       });
 
       d3.selectAll("line").remove();
@@ -112,10 +111,8 @@
         circleTicks.selectAll("circle")
           .transition()
           .attr("fill", function(d) {
-            return d < data.current ? "#FF2020" : "rgba(0,0,0, 0.4)"
+            return d <= data.current ? "#FF2020" : "rgba(142,52,52,0.4)"
           });
-
-
 
         var flameContainer = rocketFlame.transition()
           .attr("height", flameCurrent)

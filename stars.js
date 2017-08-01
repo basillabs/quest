@@ -17,7 +17,7 @@ var starData = d3.range(80).map(function() {
   var dataObject =  {
     x: Math.random() * 100,
     y: Math.random() * 100,
-    yv: random < 0.95 ? random / 10 : random,
+    yv: random < 0.90 ? random / 10 : random,
     size: (random * 3),
     color: colorScale(random)
   };
@@ -34,9 +34,9 @@ var canvas = d3.select("#canvas").insert("canvas", ":first-child")
 var context = canvas.node().getContext("2d");
 
 d3.timer(function() {
-  context.clearRect(0, 0, width, height);
-  // context.fillStyle = 'rgba(33,23,24,0.6)';
-  // context.fillRect(0, 0, width, height);
+  // context.clearRect(0, 0, width, height);
+  context.fillStyle = 'rgba(0,0,0,0.5)';
+  context.fillRect(0, 0, width, height);
   starData.forEach(function(d) {
     d.y += d.yv;
 
