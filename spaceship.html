@@ -37,11 +37,7 @@
         total: 20000
       };
 
-      var colors = {
-        redFlame: "#FF1A1A"
-      };
-
-      var height = 600;
+      var height = 400;
       var width = 200;
       var rocketHeight = 55;
       var rocketWidth = 11;
@@ -67,8 +63,13 @@
       var rocketFlame = d3.select("#rocket-flames")
         .attr("style", "position: absolute; left: calc(50% - 5px); bottom: 0; ");
 
-      var axis = d3.axisRight(axisScale)
+      var numberAxis = d3.axisRight(axisScale)
         .ticks(5, "s");
+
+      var circleAxis = d3.axisRight(axisScale)
+        .ticks(60)
+        .tickFormat("");
+
 
       d3.select("#canvas")
         .attr("style", "width:" + widthPadded + "px; height: "+ heightPadded +"px;")
@@ -79,11 +80,32 @@
         .attr("height", height + padding.top + padding.bottom)
           .append("g")
           .attr("transform", "translate("+ padding.left +","+ padding.top +")")
-          .call(axis);
+          .call(numberAxis)
+          .append("g")
+          .attr("class", "circle-axis")
+          .call(circleAxis);
+
+      var circleTicks = d3.selectAll(".circle-axis .tick");
+      circleTicks.each(function() {
+        d3.select(this)
+          .append("circle")
+          .attr("r", 3)
+          .attr("fill", "rgba(0,0,0, 0.4)");
+      });
+
+      d3.selectAll("line").remove();
+      d3.selectAll(".domain").remove();
 
       function updateRocket() {
         data.current = Math.random() * 20000;
         var flameCurrent = yScale(data.current) + 50;
+        circleTicks.selectAll("circle")
+          .transition()
+          .attr("fill", function(d) {
+            return d < data.current ? "#FF2020" : "rgba(0,0,0, 0.4)"
+          });
+
+
 
         var flameContainer = rocketFlame.transition()
           .attr("height", flameCurrent)
