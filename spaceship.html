@@ -5,131 +5,16 @@
     <title>Spaceship</title>
 
     <link rel="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"/>
+    
   </head>
   <body class="dark-red-bg m0">
-    <div id="canvas" class="spaceship-container">
-      <svg id="rocket-flames" width="11px" height="38px" viewBox="0 0 11 38">
-        <g id="flames">
-          <polygon id="rocket-flame-light" fill="#9D0000" opacity="0.642266757" points="5.5 0.71875 11 38 0 38"></polygon>
-          <polygon class="pulse pulse-delay" id="rocket-flame-dark" fill="#FF2020" opacity="0.813462409" points="5.5 0.71875 9 38 2 38"></polygon>
-        </g>
-      </svg>
 
-      <svg id="rocket-container" width="11px" height="55px" viewBox="0 0 11 55">
-        <g id="rocket">
-          <polygon class="flame-move" id="Path-2" fill="#FFB914" points="4.33113325 30.9988397 5.52162438 54.7288392 6.61158311 30.9988397"></polygon>
-          <polygon id="Rectangle-8" fill="#86240C" points="3 29 8 29 7.66344736 31 3.38228707 31"></polygon>
-          <path d="M3.29538202,24.0004897 C3.29538202,24.0004897 0.724655534,25.40952 0.222970933,26.512686 C-0.278713667,27.6158519 0.222970933,30.756486 0.222970933,30.756486 C0.222970933,30.756486 1.07942895,29.7177413 1.64769101,29.2611171 C2.21595307,28.8044929 3.29538202,28.287665 3.29538202,28.287665 L3.29538202,24.0004897 Z" id="Path-2-Copy-3" fill="#546B7C"></path>
-          <path d="M10.9475559,24.0004897 C10.9475559,24.0004897 8.37682945,25.40952 7.87514485,26.512686 C7.37346025,27.6158519 7.87514485,30.756486 7.87514485,30.756486 C7.87514485,30.756486 8.73160286,29.7177413 9.29986492,29.2611171 C9.86812698,28.8044929 10.9475559,28.287665 10.9475559,28.287665 L10.9475559,24.0004897 Z" id="Path-2-Copy-4" fill="#546B7C" transform="translate(9.299865, 27.378488) scale(-1, 1) translate(-9.299865, -27.378488) "></path>
-          <path d="M3.04746713,29.546875 C2.3947312,26.5484437 1.98939014,22.2246713 1.98939014,17.0412693 C1.98939014,6.84589693 5.49202694,0.232183562 5.49202694,0.232183562 C5.49202694,0.232183562 8.99466373,6.84589693 8.99466373,17.0412693 C8.99466373,22.2246713 8.58932267,26.5484437 7.93658674,29.546875 L3.04746713,29.546875 Z" id="Combined-Shape-Copy" fill="#FFFFFF"></path>
-        </g>
-      </svg>
-    </div>
-
-    <button class="btn btn-red b pointer pull-right mt4 ml5" onclick="updateRocket()">Update</button>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
-      var data = {
-        current: 0,
-        total: 20000
-      };
 
-      var height = 400;
-      var width = 200;
-      var rocketHeight = 55;
-      var rocketWidth = 11;
-      var padding = {top: 40, bottom: 55, right: 20, left: 20 };
-      var heightPadded = height + padding.top + padding.bottom;
-      var widthPadded = width + padding.left + padding.right;
-
-      var yScale = d3.scaleLinear()
-        .domain([0, data.total])
-        .range([0, height])
-
-      var axisScale = d3.scaleLinear()
-        .domain([0, data.total])
-        .range([height, 0])
-
-      var flameWidthScale = d3.scaleLinear()
-        .domain([0, data.total])
-        .range([1, 4])
-
-      var labelColorScale = d3.scaleLinear().domain([0,4]).range([d3.rgb("#FF2525"), d3.rgb('#FFFFFF')]);
-
-      var rocket = d3.select("#rocket-container")
-        .attr("style", "position: absolute; left: calc(50% - 5px); bottom: 0;");
-
-      var rocketFlame = d3.select("#rocket-flames")
-        .attr("style", "position: absolute; left: calc(50% - 5px); bottom: 0; ");
-
-      var numberAxis = d3.axisRight(axisScale)
-        .ticks(5, "s");
-
-      var circleAxis = d3.axisRight(axisScale)
-        .ticks(60)
-        .tickFormat("");
-
-
-      d3.select("#canvas")
-        .attr("style", "width:" + widthPadded + "px; height: "+ heightPadded +"px;")
-
-      d3.select("#canvas")
-        .append("svg")
-        .attr("class", "axisSvg")
-        .attr("width", width + padding.left + padding.right)
-        .attr("height", height + padding.top + padding.bottom)
-          .append("g")
-          .attr("transform", "translate("+ padding.left +","+ padding.top +")")
-          .attr("class", "number-axis")
-          .call(numberAxis)
-          .append("g")
-          .attr("class", "circle-axis")
-          .call(circleAxis);
-
-      var numberTicks = d3.selectAll(".number-axis .tick");
-        numberTicks
-          .each(function(d, i) {
-          d3.select(this).select("text")
-            .attr("fill", labelColorScale(i));
-        })
-
-      var circleTicks = d3.selectAll(".circle-axis .tick");
-      circleTicks.each(function() {
-        d3.select(this)
-          .append("circle")
-          .attr("r", 3)
-          .attr("fill", "rgba(142,52,52,0.4)");
-      });
-
-      d3.selectAll("line").remove();
-      d3.selectAll(".domain").remove();
-
-      function updateRocket() {
-        data.current = Math.random() * 20000;
-        var flameCurrent = yScale(data.current) + 50;
-        circleTicks.selectAll("circle")
-          .transition()
-          .attr("fill", function(d) {
-            return d <= data.current ? "#FF2020" : "rgba(142,52,52,0.4)"
-          });
-
-        var flameContainer = rocketFlame.transition()
-          .attr("height", flameCurrent)
-          .attr("style", "position: absolute; left: calc(50% - 5px); bottom: 0; transform: scaleX(" + flameWidthScale(data.current) + ") ")
-          .attr("viewBox", "0 0 11 " + flameCurrent);
-
-        flameContainer.select("#rocket-flame-light")
-            .attr("points", "5.5 0.71875 11 " + flameCurrent + " 0 " + flameCurrent + "");
-
-        flameContainer.select("#rocket-flame-dark")
-          .attr("points", "5.5 0.71875 9 " + flameCurrent + " 2 " + flameCurrent + "");
-
-        rocket.transition().attr("style", "position: absolute; left: calc(50% - 5px); bottom: "+ yScale(data.current)+"; ");
-      }
 
 
     </script>
-    <script src="stars.js"></script>
+
   </body>
 </html>
