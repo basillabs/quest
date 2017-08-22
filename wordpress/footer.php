@@ -23,49 +23,71 @@
     var padding = {top: 40, bottom: 55, right: 20, left: 20 };
     var selector = "#canvas";
 
-    // liftOff("00");
-    // liftOff("01");
-    // liftOff("02");
-
     let goFundMeUrls = document.getElementsByClassName("post-meta");
-    goFundMeUrls[1].outerText.substring(13));
+
+    let rocketShipDivs = document.getElementsByClassName("rocket-ship-div");
+    let counter = 0;
+
+    let percents = document.getElementsByClassName("percentage-completed");
+
+    let rockets = [];
+
+    for (let i=0; i<rocketShipDivs.length; i++) {
+      counter++;
+      rocketShipDivs[i].id = "rocket-" + counter;
+      rockets.push({
+        index: i,
+        id: "#" + rocketShipDivs[i].id,
+        url: goFundMeUrls[i].outerText.substring(13)
+      });
+    }
 
     var myHeaders = new Headers();
 
     var myInit = { method: 'GET',
                headers: myHeaders,
-               mode: 'no-cors',
                cache: 'default' };
 
     const API_SERVER = "https://yb6wv8088h.execute-api.us-east-1.amazonaws.com/dev/scrape?gofundmeurl=";
+    console.log('rockets', rockets);
+    rockets.forEach(function(rocket) {
+      fetch(API_SERVER+rocket.url, myInit)
+        .then((resp) => resp.json())
+        .then(function(response) {
 
-		goFundMeUrls.forEach(function(url) {
-			fetch(API_SERVER+url.outerText.substring(13), myInit)
-	      .then(function(response) {
-					var id = url.outerText.substring(13));
-					function liftOff(id) {
-			      generateStars({
-			        height: height * 2,
-			        width: width * 2,
-			        padding: padding,
-			        selector: selector + id
-			      });
+					console.log("Response: ", response);
+          function liftOff(id) {
+            generateStars({
+              height: height * 2,
+              width: width * 2,
+              padding: padding,
+              selector: id
+            });
 
-			      generateSpaceship({
-			        height: height,
-			        width: width,
-			        padding: padding,
-			        selector: selector + id
-			      });
-			    }
+            generateSpaceship({
+              height: height,
+              width: width,
+              padding: padding,
+              selector: id,
+							data: response
+            });
+          }
+        liftOff(rocket.id);
 
-					liftOff(id);
-	    });
-		})
+        // Inject correct percentage
+        let percentage = (response.current / response.total) * 100;
+        percents[rocket.index].innerHTML = Math.round(percentage) + "% Completed";
+
+
+
+      })
+      .catch(function(error) {
+        console.log('error', error);
+      });
+    });
 
 
     </script>
-</div><!-- #page -->
 
 <?php wp_footer(); ?>
 

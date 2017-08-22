@@ -31,6 +31,7 @@ function generateStars(config) {
       .attr("height", config.height)
       .attr("id", "star-canvas");
 
+
   // node returns first dom element in a selection
   var context = canvas.node().getContext("2d");
 

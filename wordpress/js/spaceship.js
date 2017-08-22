@@ -1,8 +1,8 @@
 function generateSpaceship(config) {
-  var data = {
-    current: 0,
-    total: 20000
-  };
+  var data = Object.assign({}, config.data);
+  if (data.current > data.total) {
+    data.total = data.current;
+  }
 
   var height = config.height;
   var width = config.width;
@@ -36,7 +36,7 @@ function generateSpaceship(config) {
     .ticks(5, "s");
 
   var circleAxis = d3.axisRight(axisScale)
-    .ticks(60)
+    .ticks(40)
     .tickFormat("");
 
 
@@ -75,7 +75,6 @@ function generateSpaceship(config) {
   d3.selectAll(".domain").remove();
 
   function updateRocket() {
-    data.current = Math.random() * 20000;
     var flameCurrent = yScale(data.current) + 50;
     circleTicks.selectAll(config.selector + " circle")
       .transition()

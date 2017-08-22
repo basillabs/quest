@@ -29,7 +29,7 @@ $wpb_all_query = new WP_Query(array('post_type'=>'post', 'post_status'=>'publish
     <div class="m0 bb-red">
       <div class="center cf mw8">
         <div class="fl-ns w-50-m w-third-l w-100">
-          <div id="canvas-unique-id" class="spaceship-container center">
+          <div class="rocket-ship-div spaceship-container center">
             <svg id="rocket-flames" width="11px" height="38px" viewBox="0 0 11 38">
               <g id="flames">
                 <polygon id="rocket-flame-light" fill="#9D0000" opacity="0.642266757" points="5.5 0.71875 11 38 0 38"></polygon>
@@ -52,8 +52,9 @@ $wpb_all_query = new WP_Query(array('post_type'=>'post', 'post_status'=>'publish
         <div class="fl-ns w-50-m w-two-thirds-l w-100 pa3 pa0-ns dt bt-red bn-ns">
           <div class="dtc v-mid white" style="height: 496px;">
             <div class="f4 f2-l ddc white"><?php the_title(); ?></div>
-            <div class="menlo hot-red hot-red-text-glow b">12% Completed</div>
-            <div><?php the_meta(); ?></div>
+            <div class="menlo hot-red hot-red-text-glow b percentage-completed"></div>
+            <div style="display:none"><?php the_meta(); ?></div>
+						<div><?php get_post_meta($post_id); ?></div>
 						<div class="menlo lh7 o-80">
 	            <p>
 								<?php the_content(); ?>
