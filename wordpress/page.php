@@ -60,7 +60,9 @@ $wpb_all_query = new WP_Query(array('post_type'=>'post', 'post_status'=>'publish
 								<?php the_content(); ?>
 							</p>
 						</div>
-            <button class="btn btn-red b pointer pull-right mt4">Give</button>
+            <form method="GET">
+              <button class="btn btn-red b pointer pull-right mt4 give-button">Give</button>
+            </form>
           </div>
         </div>
       </div>

@@ -30,6 +30,8 @@
 
     let percents = document.getElementsByClassName("percentage-completed");
 
+    let buttons = document.getElementsByClassName("give-button");
+    console.log('buttons', buttons);
     let rockets = [];
 
     for (let i=0; i<rocketShipDivs.length; i++) {
@@ -77,6 +79,10 @@
         // Inject correct percentage
         let percentage = (response.current / response.total) * 100;
         percents[rocket.index].innerHTML = Math.round(percentage) + "% Completed";
+
+
+        // Assign button urls
+        buttons[rocket.index].parentNode.action = response.event;
 
 
 
