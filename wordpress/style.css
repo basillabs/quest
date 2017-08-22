@@ -1,0 +1,168 @@
+/*
+Theme Name: quest
+Theme URI: http://underscores.me/
+Author: Underscores.me
+Author URI: http://underscores.me/
+Description: Description
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: quest
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+quest is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathan Neal http://necolas.github.io/normalize.css/
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Normalize
+# Typography
+# Elements
+# Forms
+# Navigation
+	## Links
+	## Menus
+# Accessibility
+# Alignments
+# Clearings
+# Widgets
+# Content
+	## Posts and pages
+	## Comments
+# Infinite scroll
+# Media
+	## Captions
+	## Galleries
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+.hot-red {
+  color: #FF2020;
+}
+
+.hot-red-bg {
+  background-color: #FF2020;
+}
+
+.hot-red-text-glow {
+  text-shadow: 0 0 3px rgba(255,32,32, 0.5);
+}
+
+.dark-red-bg {
+  background-color: #201818;
+}
+
+.red-border {
+  border: 1px solid #FF2020;
+}
+
+.ddc {
+  font-family: "DDC", sans-serif;
+}
+
+.menlo {
+  font-family: Menlo, monospace;
+}
+
+.dark-text-shadow-lg {
+  text-shadow: 0 3px 0 #2F0C2C;
+}
+
+.dark-text-shadow {
+  text-shadow: 0 2px 0 #2F0C2C;
+}
+
+.lh7 {
+  line-height: 1.7
+}
+
+.btn {
+  border-radius: 20px;
+  font-size: 18px;
+  padding: 10px 25px;
+  text-decoration: none;
+  outline: none;
+}
+
+.btn-red {
+  background-color: #FF2020;
+  color: white;
+  box-shadow: 0 0 7px #FF2020;
+  border: none;
+}
+
+.bb-red {
+  border-bottom: 1px solid #FF2020;
+}
+
+.bt-red {
+  border-top: 1px solid #FF2020;
+}
+
+.spaceship-container {
+  background-image: linear-gradient(0deg, #630202 -40%, rgba(68,42,42,0.1) 100%);
+  position: relative;
+  border-left: 1px solid #FF2020;
+  border-right: 1px solid #FF2020;
+}
+
+@font-face {
+  font-family: DDC;
+  src: url("./fonts/DDCHardware-Regular.otf") format("opentype");
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes twitch {
+  0% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.pulse {
+  animation-duration: 1s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.flame-move {
+  animation-duration: 1s;
+  animation-name: twitch;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.tick text {
+  font-weight: bold;
+  font-family: "Menlo", monospace;
+}
